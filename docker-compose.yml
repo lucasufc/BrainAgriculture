@@ -1,0 +1,25 @@
+version: '3.5'
+
+services:
+  postgres:
+    container_name: brainagriculture
+    image: postgres:15
+    environment:
+      POSTGRES_USER: 'development'
+      POSTGRES_PASSWORD: 'development'
+      POSTGRES_DATABASE: 'brainagriculture'
+      PGDATA: /data/postgres
+    volumes:
+       - postgres:/data/postgres
+    ports:
+      - "29880:5432"
+    networks:
+      - postgres
+    restart: unless-stopped
+
+networks:
+  postgres:
+    driver: bridge
+
+volumes:
+    postgres:

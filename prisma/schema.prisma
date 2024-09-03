@@ -1,0 +1,90 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Farmer {
+  cpf_cnpj     String   @id @unique
+  name         String
+  email        String
+  state        String  @db.Char(2)
+  city         String
+  address      String
+
+  is_active         Boolean @default(true)
+  last_modified_by  String
+  created_at        DateTime      @default(now())
+  updated_at        DateTime      @updatedAt
+  
+  farms        Farm[]
+
+  @@map("farmers")
+}
+
+model Farm {
+  id              Int        @id @default(autoincrement())
+  name            String
+  farmer_cpf_cnpj String
+
+  state        String  @db.Char(2)
+  city         String
+  address      String
+
+  total_area      Decimal @db.Decimal(10, 2)
+  arable_area     Decimal @db.Decimal(10, 2)
+  vegetation_area Decimal @db.Decimal(10, 2)
+
+  is_active         Boolean @default(true)
+  last_modified_by  String
+  created_at        DateTime      @default(now())
+  updated_at        DateTime      @updatedAt
+
+  CultureByFarm CultureByFarm[]
+  produtor      Farmer @relation(fields: [farmer_cpf_cnpj], references: [cpf_cnpj])
+  
+
+  @@index([farmer_cpf_cnpj])
+  @@map("farms") 
+}
+
+model Culture {
+  id            Int        @id @default(autoincrement())
+  type          String
+  subtype       String
+
+  last_modified_by  String
+  created_at        DateTime      @default(now())
+  updated_at        DateTime      @updatedAt
+
+  CultureByFarm CultureByFarm[]
+
+   @@unique([type, subtype])
+   @@map("cultures")
+}
+
+model CultureByFarm {
+  id          Int     @id @default(autoincrement())
+  farmId      Int
+  cultureId   Int
+  planted_area  Decimal    @db.Decimal(10, 2)
+  
+  last_modified_by  String
+  created_at        DateTime      @default(now())
+  updated_at        DateTime      @updatedAt
+
+  farm        Farm     @relation(fields: [farmId], references: [id])
+  culture     Culture  @relation(fields: [cultureId], references: [id])
+
+  @@unique([farmId, cultureId])
+  @@map("culture_by_farm")
+}
