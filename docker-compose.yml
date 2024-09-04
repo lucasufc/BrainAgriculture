@@ -10,9 +10,9 @@ services:
       POSTGRES_DATABASE: 'brainagriculture'
       PGDATA: /data/postgres
     volumes:
-       - postgres:/data/postgres
+      - postgres:/data/postgres
     ports:
-      - "29880:5432"
+      - '29880:5432'
     networks:
       - postgres
     restart: unless-stopped
@@ -22,4 +22,4 @@ networks:
     driver: bridge
 
 volumes:
-    postgres:
+  postgres:

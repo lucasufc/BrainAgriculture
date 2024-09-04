@@ -48,8 +48,8 @@ CREATE TABLE "cultures" (
 -- CreateTable
 CREATE TABLE "culture_by_farm" (
     "id" SERIAL NOT NULL,
-    "farmId" INTEGER NOT NULL,
-    "cultureId" INTEGER NOT NULL,
+    "farm_id" INTEGER NOT NULL,
+    "culture_id" INTEGER NOT NULL,
     "planted_area" DECIMAL(10,2) NOT NULL,
     "last_modified_by" TEXT NOT NULL,
     "created_at" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
@@ -68,13 +68,13 @@ CREATE INDEX "farms_farmer_cpf_cnpj_idx" ON "farms"("farmer_cpf_cnpj");
 CREATE UNIQUE INDEX "cultures_type_subtype_key" ON "cultures"("type", "subtype");
 
 -- CreateIndex
-CREATE UNIQUE INDEX "culture_by_farm_farmId_cultureId_key" ON "culture_by_farm"("farmId", "cultureId");
+CREATE UNIQUE INDEX "culture_by_farm_farm_id_culture_id_key" ON "culture_by_farm"("farm_id", "culture_id");
 
 -- AddForeignKey
 ALTER TABLE "farms" ADD CONSTRAINT "farms_farmer_cpf_cnpj_fkey" FOREIGN KEY ("farmer_cpf_cnpj") REFERENCES "farmers"("cpf_cnpj") ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE "culture_by_farm" ADD CONSTRAINT "culture_by_farm_farmId_fkey" FOREIGN KEY ("farmId") REFERENCES "farms"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+ALTER TABLE "culture_by_farm" ADD CONSTRAINT "culture_by_farm_farm_id_fkey" FOREIGN KEY ("farm_id") REFERENCES "farms"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE "culture_by_farm" ADD CONSTRAINT "culture_by_farm_cultureId_fkey" FOREIGN KEY ("cultureId") REFERENCES "cultures"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+ALTER TABLE "culture_by_farm" ADD CONSTRAINT "culture_by_farm_culture_id_fkey" FOREIGN KEY ("culture_id") REFERENCES "cultures"("id") ON DELETE RESTRICT ON UPDATE CASCADE;

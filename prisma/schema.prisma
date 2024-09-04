@@ -74,17 +74,17 @@ model Culture {
 
 model CultureByFarm {
   id          Int     @id @default(autoincrement())
-  farmId      Int
-  cultureId   Int
+  farm_id      Int
+  culture_id   Int
   planted_area  Decimal    @db.Decimal(10, 2)
   
   last_modified_by  String
   created_at        DateTime      @default(now())
   updated_at        DateTime      @updatedAt
 
-  farm        Farm     @relation(fields: [farmId], references: [id])
-  culture     Culture  @relation(fields: [cultureId], references: [id])
+  farm        Farm     @relation(fields: [farm_id], references: [id])
+  culture     Culture  @relation(fields: [culture_id], references: [id])
 
-  @@unique([farmId, cultureId])
+  @@unique([farm_id, culture_id])
   @@map("culture_by_farm")
 }

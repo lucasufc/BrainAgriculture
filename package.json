@@ -5,19 +5,23 @@
   "main": "index.js",
   "scripts": {
     "dev": "tsx watch src/server.ts",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "format": "prettier --write .",
+    "format:check": "prettier --check ."
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "devDependencies": {
     "@types/node": "^22.5.2",
+    "prettier": "^3.3.3",
     "prisma": "^5.19.1",
     "typescript": "^5.5.4"
   },
   "dependencies": {
     "@fastify/cors": "^9.0.1",
     "@prisma/client": "^5.19.1",
+    "cpf-cnpj-validator": "^1.0.3",
     "fastify": "^4.28.1",
     "tsx": "^4.19.0"
   }
