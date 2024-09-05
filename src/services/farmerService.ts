@@ -79,7 +79,7 @@ class FarmerService {
   }
 
   async delete(request: FastifyRequest, reply: FastifyReply) {
-    const { cpfCnpj, user } = request.query as { cpfCnpj: string, user: string }
+    const { cpfCnpj, user } = request.query as { cpfCnpj: string; user: string }
     if (!cpfCnpj) return reply.status(400).send({ error: 'O CPF/CNPJ é obrigatorio' })
     if (!user) return reply.status(400).send({ error: 'A identificação é obrigatoria' })
 

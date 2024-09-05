@@ -154,7 +154,6 @@ class FarmRepository {
 
     return farm
   }
-
 }
 
 export { FarmRepository }

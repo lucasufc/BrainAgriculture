@@ -71,5 +71,4 @@ class FarmService {
   }
 }
 
-
 export { FarmService }
